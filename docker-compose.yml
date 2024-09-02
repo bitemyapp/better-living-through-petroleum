@@ -1,0 +1,23 @@
+# PostgreSQL for transactional DDL among other reasons
+services:
+  pg:
+    image: postgres:16-alpine
+    command:
+      - 'postgres'
+      - '-c'
+      - 'max_connections=100'
+      - '-c'
+      - 'shared_buffers=256MB'
+      - '-c'
+      - 'log_statement=all'
+    environment:
+      POSTGRES_DB: petro-db
+      POSTGRES_USER: petro-user
+      POSTGRES_PASSWORD: petro-pass
+    ports:
+      - "5434:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data:delegated
+
+volumes:
+    db_data: {}
